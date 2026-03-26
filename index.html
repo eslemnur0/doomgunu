@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Doğum Günün Kutlu Olsun Balımm🌹</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #060912;
+      --bg2:        #0c1022;
+      --gold:       #d4af37; /* Daha zengin bir altın tonu */
+      --gold-l:     #f9e596; /* Daha parlak bir altın */
+      --gold-dim:   rgba(212, 175, 55, 0.25);
+      --rose:       #c87b88; /* Biraz daha canlı bir gül kurusu */
+      --rose-l:     #e2b4ba;
+      --rose-dim:   rgba(200, 123, 136, 0.2);
+      --text:       #f4ebd8; /* Daha net, parlak krem/beyaz */
+      --text-d:     rgba(244, 235, 216, 0.75); /* Okunabilirliği artırılmış alt metin rengi */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; /* Mac/iOS cihazlarda fontların daha pürüzsüz görünmesi için */
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── CURSOR ──────────────────────────────────────── */
+    #cursor {
+      position: fixed; pointer-events: none; z-index: 9999;
+      font-size: 16px; transform: translate(-50%,-50%);
+      transition: transform .08s; will-change: transform;
+    }
+    @media (hover: none) { #cursor { display: none !important; } }
+
+    /* ── STARS ───────────────────────────────────────── */
+    .star {
+      position: fixed; border-radius: 50%; background: #fff; pointer-events: none;
+      animation: twinkle var(--d) ease-in-out infinite var(--dl);
+      opacity: 0; z-index: 0;
+    }
+    @keyframes twinkle {
+      0%,100%{ opacity:0; transform:scale(.4); }
+      50%    { opacity:var(--op); transform:scale(1); }
+    }
+
+    /* ── BG HEARTS ───────────────────────────────────── */
+    .bh {
+      position: fixed; pointer-events: none; animation: floatUp var(--d) ease-in infinite var(--dl);
+      font-size: var(--s); left: var(--l); bottom: -60px; opacity: 0; z-index: 0;
+    }
+    @keyframes floatUp {
+      0%  { opacity:0; transform:translateY(0) rotate(0deg); }
+      8%  { opacity:.15; }
+      92% { opacity:.05; }
+      100%{ opacity:0; transform:translateY(-105vh) rotate(25deg); }
+    }
+
+    /* ── SHARED SECTION STYLES ───────────────────────── */
+    section {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 80px 24px;
+    }
+    .sec-label {
+      font-size: .75rem; letter-spacing: .5em; text-transform: uppercase;
+      color: var(--rose-l); margin-bottom: 14px; text-align: center;
+      font-weight: 500;
+    }
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic;
+      font-size: clamp(2.2rem,6vw,3.8rem); color: var(--gold-l); text-align: center; line-height: 1.2;
+      text-shadow: 0 2px 15px rgba(212, 175, 55, 0.2); /* Vurgulu parlama */
+    }
+    .divider {
+      width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--rose), transparent); 
+      margin: 28px auto; opacity: 0; transition: opacity 1s ease .3s;
+    }
+    .divider.vis { opacity: 1; }
+
+    /* ── SHARED REVEAL ───────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity .9s ease, transform .9s ease;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #hero {
+      background: radial-gradient(ellipse 80% 70% at 50% 40%, #1d0b32 0%, var(--bg) 72%);
+      text-align: center; overflow: hidden;
+    }
+    .hero-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+
+    .hero-rose { font-size: 5rem; display: block; margin-bottom: 22px; filter: drop-shadow(0 0 20px rgba(183,110,121,0.5));
+      opacity:0; animation: roseIn 1.4s cubic-bezier(.22,1,.36,1) .2s forwards; }
+    @keyframes roseIn {
+      0%   { opacity:0; transform: scale(0) rotate(-30deg); filter: blur(12px); }
+      100% { opacity:1; transform: scale(1) rotate(0deg);   filter: drop-shadow(0 0 20px rgba(183,110,121,0.5)); }
+    }
+    .hero-eyebrow {
+      font-size: .8rem; letter-spacing: .45em; text-transform: uppercase; color: var(--rose-l); font-weight: 500;
+      opacity:0; animation: fadeUp 1s ease .7s forwards; text-shadow: 0 0 10px rgba(226,180,186,0.3);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+      font-size: clamp(4rem,14vw,9rem); color: var(--gold-l); line-height: 1; margin: 14px 0;
+      text-shadow: 0 4px 30px rgba(212, 175, 55, 0.3);
+      opacity:0; animation: fadeUp 1.1s ease 1s forwards;
+    }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+      font-size: clamp(1.2rem,3vw,1.6rem); color: var(--text-d); max-width: 520px; line-height: 1.6;
+      opacity:0; animation: fadeUp 1s ease 1.5s forwards;
+    }
+    .hero-badge {
+      margin-top: 30px; font-size: .7rem; letter-spacing: .5em; text-transform: uppercase;
+      color: var(--rose); font-weight: 600; opacity:0; animation: fadeUp 1s ease 2s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .scroll-cue {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity:0; animation: fadeIn 1s ease 2.8s forwards;
+    }
+    .scroll-cue span { font-size:.65rem; letter-spacing:.35em; color: var(--text-d); text-transform:uppercase; font-weight: 500;}
+    .scroll-line {
+      width: 1px; height: 44px; background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.3;} 50%{opacity:1;} }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+    /* ── JOURNEY ─────────────────────────────────────── */
+    #journey {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
+      gap: 0;
+    }
+    .journey-grid {
+      display: grid; gap: 24px; width: 100%; max-width: 680px; margin-top: 56px;
+    }
+    .jcard {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(212, 175, 55, .15);
+      border-radius: 18px; padding: 36px 32px; backdrop-filter: blur(10px);
+      display: flex; gap: 24px; align-items: flex-start;
+      opacity:0; transform: translateY(36px);
+      transition: opacity .8s ease, transform .8s ease, border-color .4s ease, box-shadow .4s ease;
+    }
+    .jcard.vis { opacity:1; transform: translateY(0); }
+    .jcard:hover { border-color: rgba(212, 175, 55, .4); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .jcard:nth-child(1) { transition-delay: 0s; }
+    .jcard:nth-child(2) { transition-delay: .15s; }
+    .jcard:nth-child(3) { transition-delay: .3s; }
+    .jcard-icon { font-size: 2.2rem; flex-shrink: 0; margin-top: -4px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+    .jcard-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; font-style: italic;
+      color: var(--gold-l); margin-bottom: 12px; letter-spacing: 0.05em;
+    }
+    .jcard-text { 
+      font-size: 1rem; line-height: 1.8; color: var(--text-d); 
+      white-space: pre-line; /* Şiirlerin alt alta düzgün inmesi için eklendi */
+    }
+
+    /* ── LOVE NOTE ───────────────────────────────────── */
+    #love-note {
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, #1a0a1c 0%, var(--bg) 70%);
+      text-align: center; gap: 0;
+    }
+    .lnote-quote {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+      font-size: clamp(1.6rem,4vw,2.4rem); color: var(--gold-l); line-height: 1.5;
+      max-width: 650px; text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+    }
+    .lnote-teaser {
+      font-size: .85rem; letter-spacing: .2em; color: var(--rose-l); margin-top: 10px; text-transform: uppercase; font-weight: 500;
+    }
+
+    /* ── GAME SECTION ────────────────────────────────── */
+    #game-section {
+      background: linear-gradient(180deg, var(--bg) 0%, #08091c 100%);
+      min-height: 100vh; padding: 56px 16px 72px;
+      transition: opacity 1.2s ease;
+    }
+    #game-section.fade-out { opacity: 0; pointer-events: none; }
+    .game-head { text-align: center; margin-bottom: 24px; }
+    .game-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+      font-size: clamp(2.5rem,7vw,4rem); color: var(--gold-l); line-height: 1.1;
+      text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+    }
+    .game-sub { font-size: .8rem; letter-spacing: .25em; color: var(--text-d); margin-top: 12px; text-transform: uppercase; font-weight: 500; }
+    .score-row {
+      display: flex; justify-content: center; gap: 16px; margin: 18px 0 24px;
+    }
+    .hs {
+      font-size: 2rem;
+      transition: transform .35s cubic-bezier(.22,1,.36,1), filter .35s ease;
+    }
+    .hs.hit { filter: saturate(0) brightness(.4); }
+    .hs.pop { animation: heartPop .4s ease; filter: drop-shadow(0 0 10px rgba(255,0,0,0.5)); }
+    @keyframes heartPop { 0%{transform:scale(1);} 50%{transform:scale(1.5);} 100%{transform:scale(1);} }
+
+    .canvas-wrap {
+      position: relative; width: 100%; max-width: 700px; margin: 0 auto;
+      border: 1px solid rgba(212, 175, 55, .25); border-radius: 20px; overflow: hidden;
+      box-shadow: 0 0 60px rgba(183,110,121,.15), 0 0 120px rgba(212, 175, 55,.08);
+    }
+    #gameCanvas {
+      display: block; width: 100%; height: auto;
+      touch-action: none; user-select: none; -webkit-user-select: none;
+    }
+    .game-hint {
+      text-align: center; margin-top: 20px;
+      font-size: .8rem; letter-spacing: .15em; color: var(--text-d); font-weight: 500;
+    }
+
+    /* ── FINALE ──────────────────────────────────────── */
+    #finale {
+      display: none; background: radial-gradient(ellipse 80% 70% at 50% 30%, #1d0b32 0%, var(--bg) 70%);
+      min-height: 100vh; text-align: center; padding: 80px 24px; flex-direction: column; align-items: center;
+    }
+    #finale.show { display: flex; }
+    .finale-inner {
+      max-width: 650px;
+      opacity:0; animation: fadeUp 1.4s ease .4s forwards;
+    }
+    .finale-eyebrow {
+      font-size: .75rem; letter-spacing: .5em; text-transform: uppercase;
+      color: var(--rose-l); margin-bottom: 22px; font-weight: 600;
+    }
+    .finale-greeting {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+      font-size: clamp(2.5rem,8vw,4.5rem); color: var(--gold-l); margin-bottom: 40px;
+      text-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+    .letter-box {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(1.15rem,2.5vw,1.35rem); /* Büyütüldü */
+      font-weight: 400; line-height: 1.9; color: var(--text); text-align: left; /* Daha parlak metin rengi */
+      background: rgba(255,255,255,.04); border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 20px; padding: 48px 44px; margin-bottom: 44px; position: relative;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      white-space: pre-line; /* Şiir kıtalarının düzgün görünmesi için */
+    }
+    .letter-box::before {
+      content: '"'; position: absolute; top: -10px; left: 22px;
+      font-size: 8rem; color: rgba(212, 175, 55, 0.15);
+      font-family: 'Cormorant Garamond', serif; line-height: 1;
+    }
+    .letter-box p + p { margin-top: 20px; }
+    .letter-sig { text-align: right; color: var(--gold-l); font-style: italic; font-size: 1.4rem; margin-top: 30px; font-weight: 500; }
+    
+    .wish-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--rose));
+      color: #000; border: none; cursor: pointer;
+      padding: 20px 56px; border-radius: 60px;
+      font-family: 'Raleway', sans-serif; font-weight: 600;
+      font-size: .95rem; letter-spacing: .2em; text-transform: uppercase;
+      transition: transform .3s ease, box-shadow .3s ease;
+      box-shadow: 0 4px 30px rgba(212, 175, 55, .3);
+    }
+    .wish-btn:hover { transform: scale(1.05); box-shadow: 0 8px 40px rgba(212, 175, 55, .6); }
+    .wish-msg {
+      margin-top: 32px; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-style: italic; color: var(--gold-l); font-weight: 500;
+      opacity:0; transition: opacity 1.2s ease;
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+    }
+    .wish-msg.show { opacity:1; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 480px) {
+      .letter-box { padding: 32px 24px; }
+      .jcard { padding: 26px 20px; flex-direction: column; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor">💗</div>
+
+<section id="hero">
+  <div class="hero-wrap">
+    <span class="hero-rose">🌹</span>
+    <p class="hero-eyebrow">Sana çok aşığım çokkkk</p>
+    <h1 class="hero-title">İyi ki<br>Doğdun</h1>
+    <p class="hero-sub">
+      Her gün seninle, her günüm senden olsun diye dua ediyorum,<br>
+      ama bugün özellikle senin günün.
+    </p>
+    <p class="hero-badge">✦ &nbsp; Seninle Geçen Her An &nbsp; ✦</p>
+  </div>
+  <div class="scroll-cue">
+    <span>Keşfet</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section id="journey">
+  <p class="sec-label">✦ Senin İçin ✦</p>
+  <h2 class="sec-title">Seninle Olan<br>Her Şey</h2>
+  <div class="journey-grid">
+
+    <div class="jcard">
+      <div class="jcard-icon">🌙</div>
+      <div>
+        <div class="jcard-title">Her Zerren Bende Bir Dem</div>
+        <p class="jcard-text">
+Kirpiğinden düşerken parçalanan bu idrak,
+Titrek bir nur sızarak aydınlatır bu iklim.
+Gözlerinin çapında sıfırlanırken mutlak,
+O devasa boşluğa secde ediyor takvim.
+        </p>
+      </div>
+    </div>
+
+    <div class="jcard">
+      <div class="jcard-icon">⭐</div>
+      <div>
+        <div class="jcard-title">Her Güzel An</div>
+        <p class="jcard-text">
+Her zerreni her zerrende seni, 
+zerre zerre her halini çok seviyorum.
+        </p>
+      </div>
+    </div>
+
+    <div class="jcard">
+      <div class="jcard-icon">💛</div>
+      <div>
+        <div class="jcard-title">Seninle Olmak</div>
+        <p class="jcard-text">
+Ayrılığımızın rahminde büyüyen  hicranı,
+Bir sabahın eliyle çekip aldık geceden.
+Yıldönümü dediğin, varlığın ilk mizanı,
+baharımızı yontup kurduk, dökülen her heceden
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="love-note">
+  <p class="lnote-quote reveal">
+    "Seninle geçirdiğim her an, hayatımın en güzel sayfaları."
+  </p>
+  <div class="divider"></div>
+  <p class="lnote-teaser reveal">Sana bir oyun hazırladım &nbsp;✦&nbsp; Sevgiyle ok at, kalpleri vur…</p>
+</section>
+
+<section id="game-section">
+  <div class="game-head">
+    <h2 class="game-title">Aşk Okçusu</h2>
+    <p class="game-sub">Tüm kalpleri vur &nbsp;✦&nbsp; 3 / 3</p>
+  </div>
+
+  <div class="score-row">
+    <span class="hs" id="hs0">🤍</span>
+    <span class="hs" id="hs1">🤍</span>
+    <span class="hs" id="hs2">🤍</span>
+  </div>
+
+  <div class="canvas-wrap">
+    <canvas id="gameCanvas"></canvas>
+  </div>
+
+  <p class="game-hint">📱 Yayı geri çek → nişan al → bırak</p>
+</section>
+
+<section id="finale">
+  <div class="finale-inner">
+    <p class="finale-eyebrow">✦ &nbsp; Doğum Günün Kutlu Olsun &nbsp; ✦</p>
+    <h2 class="finale-greeting">Sevgilim,</h2>
+
+    <div class="letter-box">
+      <p>Varlığın bu âleme indiği o ilk şafak,
+Tesadüf denizinde yazılan kutlu kader.
+Sızan ince bir nurla aydınlanırken durak,
+Sabahın elleriyle silindi bütün keder.</p>
+
+      <p>Satırlara sığmayan o tebessüm, o cemal,
+Dargın baktığın anlar, yüzündeki o hiddet.
+Rıza gösterdiğimdir büründüğün her bir hâl,
+Seninle geçen her gün, kalbime inen cennet.</p>
+
+      <p>Çizilen bu takvime sığmaz olsa da ömür,
+Sonsuzluğun ufkuna yürümektir bu vuslat.
+Zamanın kapısına vurulurken o mühür,
+Seninim ebediyen, şahidimdir kâinat.</p>
+
+      <p>Nice mutlu yıllara, hep birlikte. Seninle bir ömür yetmez ama yine de deneyeceğim. ✦</p>
+      <p class="letter-sig">— Seni sonsuza dek seviyorum 🌹</p>
+    </div>
+
+    <button class="wish-btn" id="wishBtn">✦ &nbsp; Şimdi Bir Dilek Tut &nbsp; ✦</button>
+    <p class="wish-msg" id="wishMsg">Dileğin gerçek olsun… 🌠</p>
+  </div>
+</section>
+  
+<script>
+/* ─── CURSOR ─────────────────────────────────────────── */
+const cursorEl = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top  = e.clientY + 'px';
+});
+
+/* ─── STARS ──────────────────────────────────────────── */
+(function() {
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < 170; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random() * 2.4 + .4;
+    s.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      left:${Math.random()*100}vw; top:${Math.random()*100}vh;
+      --d:${(Math.random()*4+2).toFixed(1)}s;
+      --dl:${(Math.random()*8).toFixed(1)}s;
+      --op:${(Math.random()*.65+.15).toFixed(2)};
+    `;
+    frag.appendChild(s);
+  }
+  document.body.appendChild(frag);
+})();
+
+/* ─── BG FLOATING HEARTS ─────────────────────────────── */
+(function() {
+  const frag = document.createDocumentFragment();
+  const icons = ['💗','💖','🌹','✨','💝','🌸'];
+  for (let i = 0; i < 10; i++) {
+    const h = document.createElement('div');
+    h.className = 'bh';
+    h.textContent = icons[Math.floor(Math.random()*icons.length)];
+    h.style.cssText = `
+      --s:${(Math.random()*.9+.5).toFixed(1)}rem;
+      --d:${(Math.random()*16+14).toFixed(0)}s;
+      --dl:${(Math.random()*12).toFixed(1)}s;
+      --l:${(Math.random()*96).toFixed(0)}vw;
+    `;
+    frag.appendChild(h);
+  }
+  document.body.appendChild(frag);
+})();
+
+/* ─── SCROLL REVEAL ──────────────────────────────────── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.18 });
+
+document.querySelectorAll('.jcard, .reveal, .divider')
+  .forEach(el => io.observe(el));
+
+/* ─── GAME ENGINE ────────────────────────────────────── */
+const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
+
+// Logical canvas dimensions (game world)
+const W = 700, H = 420;
+canvas.width  = W;
+canvas.height = H;
+
+const GRAVITY      = 0.36;
+const MAX_PULL     = 115;
+const POWER        = 0.175;
+const HEARTS_NEEDED = 3;
+
+let heartsHit  = 0;
+let gameOver   = false;
+let isDragging = false;
+let dragPos    = { x: 0, y: 0 };
+let arrows     = [];
+let particles  = [];
+let heartTargets;
+
+// Archer anchor point
+const AX = 88, AY = H / 2 + 15;
+
+// ── Heart targets ────────────────────────────────────
+function initHearts() {
+  heartTargets = [
+    { x: W*.56, baseY: H*.27, phase: 0,    sz: 26, hit: false, alpha: 1, sc: 1 },
+    { x: W*.75, baseY: H*.56, phase: 2.09, sz: 26, hit: false, alpha: 1, sc: 1 },
+    { x: W*.88, baseY: H*.33, phase: 4.19, sz: 26, hit: false, alpha: 1, sc: 1 },
+  ];
+  heartTargets.forEach(h => h.y = h.baseY);
+}
+initHearts();
+
+// ── Helpers ──────────────────────────────────────────
+function getPos(e) {
+  const r  = canvas.getBoundingClientRect();
+  const sx = W / r.width, sy = H / r.height;
+  const cx = e.touches ? e.touches[0].clientX : e.clientX;
+  const cy = e.touches ? e.touches[0].clientY : e.clientY;
+  return { x: (cx - r.left) * sx, y: (cy - r.top) * sy };
+}
+
+// ── Input ─────────────────────────────────────────────
+canvas.addEventListener('mousedown',  e => { if (!gameOver) { isDragging = true;  dragPos = getPos(e); } }, { passive: false });
+canvas.addEventListener('mousemove',  e => { if (isDragging) dragPos = getPos(e); }, { passive: false });
+canvas.addEventListener('mouseup',    fire, { passive: false });
+canvas.addEventListener('touchstart', e => { e.preventDefault(); if (!gameOver) { isDragging = true;  dragPos = getPos(e); } }, { passive: false });
+canvas.addEventListener('touchmove',  e => { e.preventDefault(); if (isDragging) dragPos = getPos(e); }, { passive: false });
+canvas.addEventListener('touchend',   e => { e.preventDefault(); fire(); }, { passive: false });
+canvas.addEventListener('mouseleave', () => { isDragging = false; });
+
+function fire() {
+  if (!isDragging || gameOver) return;
+  isDragging = false;
+  const dx = AX - dragPos.x;
+  const dy = AY - dragPos.y;
+  const dist = Math.min(Math.hypot(dx, dy), MAX_PULL);
+  if (dist < 14) return;
+  const len = Math.hypot(dx, dy);
+  const spd = dist * POWER;
+  arrows.push({ x: AX, y: AY, vx: (dx/len)*spd, vy: (dy/len)*spd, trail: [], alive: true });
+}
+
+// ── Collision ─────────────────────────────────────────
+function checkHits(arrow) {
+  for (const h of heartTargets) {
+    if (h.hit) continue;
+    if (Math.hypot(arrow.x - h.x, arrow.y - h.y) < h.sz + 7) {
+      h.hit = true;
+      arrow.alive = false;
+      // Burst particles
+      for (let i = 0; i < 22; i++) {
+        particles.push({
+          x: h.x, y: h.y,
+          vx: (Math.random()-.5)*9,
+          vy: (Math.random()-.5)*9 - 1.5,
+          al: 1, sz: Math.random()*4+1.5,
+          col: Math.random()>.5 ? '#d4af37' : '#e8547a'
+        });
+      }
+      heartsHit++;
+      updateScore();
+      return;
+    }
+  }
+}
+
+function updateScore() {
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById('hs' + i);
+    if (i < heartsHit) {
+      el.textContent = '❤️';
+      el.classList.add('pop');
+      setTimeout(() => el.classList.remove('pop'), 400);
+    }
+  }
+  if (heartsHit >= HEARTS_NEEDED) {
+    gameOver = true;
+    setTimeout(triggerFinale, 2000);
+  }
+}
+
+// ── Draw helpers ──────────────────────────────────────
+function drawHeart(cx, cy, sz, al, sc) {
+  if (al <= 0) return;
+  ctx.save();
+  ctx.globalAlpha = al;
+  ctx.translate(cx, cy);
+  ctx.scale(sc, sc);
+  ctx.beginPath();
+  ctx.moveTo(0, -sz*.28);
+  ctx.bezierCurveTo( sz*.5, -sz*.9,  sz, -sz*.5,  sz, 0);
+  ctx.bezierCurveTo( sz, sz*.5,  0, sz*.9,  0, sz);
+  ctx.bezierCurveTo( 0, sz*.9, -sz, sz*.5, -sz, 0);
+  ctx.bezierCurveTo(-sz, -sz*.5, -sz*.5, -sz*.9, 0, -sz*.28);
+  ctx.closePath();
+  const g = ctx.createRadialGradient(-sz*.15, -sz*.25, 0, 0, 0, sz*1.3);
+  g.addColorStop(0, '#ffb3c9');
+  g.addColorStop(.45, '#e8537a');
+  g.addColorStop(1, '#9a1340');
+  ctx.fillStyle = g;
+  ctx.shadowColor = '#ff3d72'; ctx.shadowBlur = 18;
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawArcher(t) {
+  ctx.save();
+  ctx.translate(AX, AY);
+
+  // Ground shadow
+  ctx.beginPath();
+  ctx.ellipse(0, 44, 15, 3.5, 0, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.fill();
+
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  const skin = '#f4ebd8', hair = '#3b1a08', wood = '#7a5c1e';
+
+  // Legs
+  ctx.strokeStyle = skin; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(0, 17); ctx.lineTo(-9, 42);
+  ctx.moveTo(0, 17); ctx.lineTo( 9, 42);
+  ctx.stroke();
+
+  // Torso
+  ctx.beginPath(); ctx.moveTo(0, -5); ctx.lineTo(0, 17); ctx.stroke();
+
+  // Head
+  ctx.beginPath(); ctx.arc(0, -15, 9, 0, Math.PI*2);
+  ctx.fillStyle = skin; ctx.fill();
+  ctx.beginPath(); ctx.arc(0, -19.5, 9, Math.PI*1.08, Math.PI*2-.08);
+  ctx.fillStyle = hair; ctx.fill();
+
+  // Bow arm (left) + draw arm (right)
+  ctx.strokeStyle = skin; ctx.lineWidth = 2.8;
+  ctx.beginPath(); ctx.moveTo(0, 1); ctx.lineTo(-22, -7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, 1); ctx.lineTo(11, -2); ctx.stroke();
+
+  // Bow arc
+  const bx = -22, by = -7, br = 19;
+  ctx.strokeStyle = wood; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(bx, by, br, -Math.PI*.58, Math.PI*.58, false);
+  ctx.stroke();
+
+  // String endpoints
+  const bTop    = { x: bx + br*Math.cos(-Math.PI*.58), y: by + br*Math.sin(-Math.PI*.58) };
+  const bBottom = { x: bx + br*Math.cos( Math.PI*.58), y: by + br*Math.sin( Math.PI*.58) };
+
+  if (isDragging) {
+    // Local pull coords
+    const lx = dragPos.x - AX, ly = dragPos.y - AY;
+    const dist = Math.min(Math.hypot(lx, ly), MAX_PULL);
+    const ang  = Math.atan2(ly, lx);
+    const px   = Math.cos(ang) * dist, py = Math.sin(ang) * dist;
+
+    // Rubber band string
+    ctx.strokeStyle = 'rgba(249, 229, 150, .8)'; ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(bTop.x, bTop.y);
+    ctx.lineTo(px, py);
+    ctx.lineTo(bBottom.x, bBottom.y);
+    ctx.stroke();
+
+    // Arrow nocked at pull point
+    const arrowAng = Math.atan2(-py, -px);
+    ctx.save();
+    ctx.translate(px, py); ctx.rotate(arrowAng);
+    ctx.beginPath(); ctx.moveTo(-3, 0); ctx.lineTo(24, 0);
+    ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 2.2; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(24, 0); ctx.lineTo(17, -3.5); ctx.lineTo(17, 3.5); ctx.closePath();
+    ctx.fillStyle = '#ffe566'; ctx.fill();
+    ctx.strokeStyle = '#c87b88'; ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(-3, 0); ctx.lineTo(-10, -4.5);
+    ctx.moveTo(-3, 0); ctx.lineTo(-10,  4.5);
+    ctx.stroke();
+    ctx.restore();
+
+  } else {
+    // Static string
+    ctx.strokeStyle = 'rgba(249, 229, 150, .65)'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(bTop.x, bTop.y); ctx.lineTo(0, -2); ctx.lineTo(bBottom.x, bBottom.y);
+    ctx.stroke();
+
+    // Arrow at rest (nocked)
+    ctx.save(); ctx.translate(0, -2); ctx.rotate(-.08);
+    ctx.beginPath(); ctx.moveTo(-3, 0); ctx.lineTo(22, 0);
+    ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 2.2; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(22, 0); ctx.lineTo(16, -3); ctx.lineTo(16, 3); ctx.closePath();
+    ctx.fillStyle = '#ffe566'; ctx.fill();
+    ctx.restore();
+  }
+
+  ctx.restore();
+}
+
+// ── Main loop ─────────────────────────────────────────
+let raf;
+function loop(t) {
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, '#060912'); bg.addColorStop(1, '#0b0d20');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+  // Ambient stars on canvas
+  const starSeeds = [
+    [145,38,.9],[225,68,1.1],[365,28,.8],[448,85,1],[540,48,.95],
+    [618,76,1.2],[195,148,1],[345,118,.9],[510,138,.85],[595,158,1.1],
+    [160,218,.8],[275,198,1],[415,178,.9],[570,198,.85],[652,238,1],
+  ];
+  starSeeds.forEach(([sx,sy,sr]) => {
+    const tw = Math.sin(t*.0018 + sx*.1) * .28 + .42;
+    ctx.globalAlpha = tw * .32;
+    ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+
+  // Ground dashes
+  ctx.save();
+  ctx.strokeStyle = 'rgba(212, 175, 55, .15)'; ctx.lineWidth = 1; ctx.setLineDash([4,10]);
+  ctx.beginPath(); ctx.moveTo(0, H-8); ctx.lineTo(W, H-8); ctx.stroke();
+  ctx.setLineDash([]); ctx.restore();
+
+  // Hearts
+  heartTargets.forEach(h => {
+    if (!h.hit) {
+      h.y = h.baseY + Math.sin(t*.002 + h.phase) * 9;
+      // Glow ring
+      ctx.save();
+      ctx.globalAlpha = .08 + Math.sin(t*.003 + h.phase) * .04;
+      ctx.beginPath(); ctx.arc(h.x, h.y, h.sz*1.9, 0, Math.PI*2);
+      ctx.strokeStyle = '#ff3d72'; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.restore();
+      drawHeart(h.x, h.y, h.sz, h.alpha, h.sc);
+    } else {
+      h.sc  += .07;
+      h.alpha -= .045;
+      if (h.alpha > 0) drawHeart(h.x, h.y, h.sz, Math.max(0, h.alpha), h.sc);
+    }
+  });
+
+  // Trajectory preview
+  if (isDragging) {
+    const dx = AX - dragPos.x, dy = AY - dragPos.y;
+    const dist = Math.min(Math.hypot(dx, dy), MAX_PULL);
+    if (dist > 16) {
+      const len = Math.hypot(dx, dy);
+      const spd = dist * POWER;
+      let px = AX, py = AY, vx = (dx/len)*spd, vy = (dy/len)*spd;
+      for (let i = 0; i < 28; i++) {
+        vy += GRAVITY; px += vx; py += vy;
+        if (px > W || py > H + 40) break;
+        const a = (1 - i/28) * .55;
+        ctx.globalAlpha = a;
+        ctx.beginPath(); ctx.arc(px, py, 2.4, 0, Math.PI*2);
+        ctx.fillStyle = '#f9e596'; ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // Arrows
+  arrows = arrows.filter(a => a.alive);
+  arrows.forEach(a => {
+    a.trail.push({ x: a.x, y: a.y });
+    if (a.trail.length > 11) a.trail.shift();
+    a.vy += GRAVITY; a.x += a.vx; a.y += a.vy;
+    if (a.x > W+60 || a.y > H+60 || a.y < -80) { a.alive = false; return; }
+    checkHits(a);
+    // Trail
+    a.trail.forEach((pt, i) => {
+      ctx.globalAlpha = (i / a.trail.length) * .28;
+      ctx.beginPath(); ctx.arc(pt.x, pt.y, 1.6, 0, Math.PI*2);
+      ctx.fillStyle = '#ffd700'; ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    // Arrow body
+    const ang = Math.atan2(a.vy, a.vx);
+    ctx.save(); ctx.translate(a.x, a.y); ctx.rotate(ang);
+    ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-20, 0); ctx.lineTo(10, 0);
+    ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 2.6; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, 0); ctx.lineTo(4, -3.5); ctx.lineTo(4, 3.5); ctx.closePath();
+    ctx.fillStyle = '#ffe566'; ctx.fill();
+    ctx.strokeStyle = '#c87b88'; ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(-20, 0); ctx.lineTo(-14, -5);
+    ctx.moveTo(-20, 0); ctx.lineTo(-14,  5);
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  // Particles
+  particles = particles.filter(p => p.al > 0);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.vy += .18; p.al -= .028;
+    ctx.globalAlpha = Math.max(0, p.al);
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.sz, 0, Math.PI*2);
+    ctx.fillStyle = p.col; ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+
+  // Archer
+  drawArcher(t);
+
+  // Drag indicator dot
+  if (isDragging) {
+    ctx.beginPath(); ctx.arc(dragPos.x, dragPos.y, 9, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(200, 123, 136, .5)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(dragPos.x, dragPos.y, 4.5, 0, Math.PI*2);
+    ctx.fillStyle = '#c87b88'; ctx.fill();
+  }
+
+  // Win overlay
+  if (gameOver) {
+    ctx.fillStyle = 'rgba(6,9,18,.72)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#f9e596';
+    ctx.font = 'italic 400 32px "Cormorant Garamond"';
+    ctx.fillText('Tüm Kalpleri Vurdun! ❤️', W/2, H/2 - 18);
+    ctx.fillStyle = '#c87b88';
+    ctx.font = '500 14px Raleway';
+    ctx.fillText('Sürprizin geliyor…', W/2, H/2 + 26);
+  }
+
+  raf = requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* ─── FINALE ──────────────────────────────────────────── */
+function triggerFinale() {
+  document.getElementById('game-section').classList.add('fade-out');
+
+  const finale = document.getElementById('finale');
+  finale.classList.add('show');
+
+  setTimeout(() => {
+    finale.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      confetti({
+        particleCount: 140, spread: 110, origin: { y: .45 }, gravity: .75,
+        colors: ['#d4af37','#f9e596','#c87b88','#e2b4ba','#ffe566','#ff4478'],
+        scalar: 1.2
+      });
+    }, 700);
+  }, 500);
+}
+
+document.getElementById('wishBtn').addEventListener('click', function() {
+  const colors1 = ['#d4af37','#f9e596','#ffe566'];
+  const colors2 = ['#c87b88','#e2b4ba','#ff4478'];
+
+  function fire(ratio, opts) {
+    confetti({ particleCount: Math.floor(320 * ratio), ...opts });
+  }
+
+  fire(.25, { spread: 28, startVelocity: 56, colors: colors1, origin: { y: .55 } });
+  fire(.20, { spread: 65, colors: colors2, origin: { y: .5  } });
+  fire(.30, { spread: 105, decay: .91, scalar: .82, colors: [...colors1,...colors2], origin: { y: .6 } });
+  fire(.10, { spread: 130, startVelocity: 28, decay: .93, scalar: 1.3, colors: colors1, origin: { y: .45 } });
+
+  setTimeout(() => {
+    confetti({ particleCount: 220, angle:  60, spread: 85, origin: { x: 0, y: .6 }, colors: colors1, gravity: .65 });
+    confetti({ particleCount: 220, angle: 120, spread: 85, origin: { x: 1, y: .6 }, colors: colors2, gravity: .65 });
+  }, 320);
+
+  setTimeout(() => {
+    confetti({ particleCount: 180, spread: 360, startVelocity: 20, decay: .94, colors: [...colors1, ...colors2], origin: { y: .5 } });
+    document.getElementById('wishMsg').classList.add('show');
+  }, 800);
+});
+</script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
